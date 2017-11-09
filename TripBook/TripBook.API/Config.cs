@@ -28,10 +28,10 @@ namespace TripBook.API
                     ClientId = "angular_spa",
                     ClientName = "Angular 4 Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowedScopes = new List<string> {"openid", "profile", "api1"},
-                    RedirectUris = new List<string> {"https://localhost:44343/auth-callback"},
-                    PostLogoutRedirectUris = new List<string> {"https://localhost:44343/"},
-                    AllowedCorsOrigins = new List<string> {"https://localhost:44343"},
+                    AllowedScopes = new List<string> {"openid", "profile", "api1", "role"},
+                    RedirectUris = new List<string> {"https://localhost:44363/auth-callback"},
+                    PostLogoutRedirectUris = new List<string> {"https://localhost:44363/"},
+                    AllowedCorsOrigins = new List<string> {"https://localhost:44363"},
                     AllowAccessTokensViaBrowser = true
                 }
             };

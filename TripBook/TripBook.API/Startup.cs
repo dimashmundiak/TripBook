@@ -42,6 +42,8 @@ namespace TripBook.API
             
             InitializeDbTestData(app);
 
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
             app.UseIdentity();
             app.UseIdentityServer();
 
