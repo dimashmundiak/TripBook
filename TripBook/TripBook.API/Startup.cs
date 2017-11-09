@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,9 @@ using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using TripBook.API.Entities;
+using TripBook.API.Models;
+using TripBook.API.Services;
 
 namespace TripBook.API
 {
@@ -19,6 +23,9 @@ namespace TripBook.API
             const string connectionString =
                 @"Data Source=(LocalDb)\MSSQLLocalDB;database=TripBookDb;trusted_connection=yes;";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            services.AddDbContext<TripBookContext>(c =>
+                c.UseSqlServer(connectionString));
+            services.AddScoped<ITripBookRepository, TripBookRepository>();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddIdentityServer()
@@ -39,13 +46,33 @@ namespace TripBook.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Country, CountryDto>();
+                cfg.CreateMap<CountryForCreationDto, Country>();
+                cfg.CreateMap<CountryForUpdateDto, Country>();
+                cfg.CreateMap<City, CityDto>();
+                cfg.CreateMap<CityForCreationDto, City>();
+                cfg.CreateMap<CityForUpdateDto, City>();
+                cfg.CreateMap<Place, PlaceDto>();
+                cfg.CreateMap<PlaceForCreationDto, Place>();
+                cfg.CreateMap<PlaceForUpdateDto, Place>();
+            });
+
             InitializeDbTestData(app);
 
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseIdentity();
             app.UseIdentityServer();
+
+            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+            {
+                Authority = "https://localhost:44360",
+                RequireHttpsMetadata = false,
+                AllowedScopes = new List<string> { "api1" }
+            });
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
