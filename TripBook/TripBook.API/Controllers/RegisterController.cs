@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using TripBook.API.Models;
 
 namespace TripBook.API.Controllers
@@ -21,7 +22,7 @@ namespace TripBook.API.Controllers
         }
 
         [HttpPost()]
-        public IActionResult Register([FromBody] UserForCreationDto newUser)
+        public async Task<IActionResult> Register([FromBody] UserForCreationDto newUser)
         {
             var userToAdd = new TestUser
             {
@@ -47,8 +48,12 @@ namespace TripBook.API.Controllers
                     ClaimValue = claim.Value,
                 });
             }
-            _userManager.CreateAsync(newIdentityUser, newUser.Password).Wait();
-            return Ok();
+            var a = await _userManager.CreateAsync(newIdentityUser, newUser.Password);
+            if (!a.Succeeded)
+            {
+                return BadRequest(a);
+            }
+            return NoContent();
         }
     }
 }

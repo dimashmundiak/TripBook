@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TripBook.API.Entities;
 
 namespace TripBook.API.Services
@@ -13,19 +15,19 @@ namespace TripBook.API.Services
             _context = context;
         }
 
-        public IEnumerable<Country> GetCountries()
+        public Task<List<Country>> GetCountries()
         {
-            return _context.Countries.ToList();
+            return _context.Countries.ToListAsync();
         }
 
-        public Country GetCountry(int id)
+        public Task<Country> GetCountry(int id)
         {
-            return _context.Countries.FirstOrDefault(c => c.Id == id);
+            return _context.Countries.FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public void AddCountry(Country entity)
         {
-            _context.Countries.Add(entity);
+            _context.Countries.AddAsync(entity);
         }
 
         public void DeleteCountry(Country entity)
@@ -33,19 +35,19 @@ namespace TripBook.API.Services
             _context.Countries.Remove(entity);
         }
 
-        public IEnumerable<City> GetCitiesForCountry(int id)
+        public Task<List<City>> GetCitiesForCountry(int id)
         {
-            return _context.Cities.Where(c => c.CountryId == id).ToList();
+            return _context.Cities.Where(c => c.CountryId == id).ToListAsync();
         }
 
-        public City GetCityForCountry(int id, int cityId)
+        public Task<City> GetCityForCountry(int id, int cityId)
         {
-            return _context.Cities.FirstOrDefault(c => c.CountryId == id && c.Id == cityId);
+            return _context.Cities.FirstOrDefaultAsync(c => c.CountryId == id && c.Id == cityId);
         }
 
         public void AddCityForCountry(City entity)
         {
-            _context.Cities.Add(entity);
+            _context.Cities.AddAsync(entity);
         }
 
         public void DeleteCityForCountry(City entity)
@@ -53,19 +55,19 @@ namespace TripBook.API.Services
             _context.Cities.Remove(entity);
         }
 
-        public IEnumerable<Place> GetPlacesForCity(int cityId)
+        public Task<List<Place>> GetPlacesForCity(int cityId)
         {
-            return _context.Places.Where(p => p.CityId == cityId).ToList();
+            return _context.Places.Where(p => p.CityId == cityId).ToListAsync();
         }
 
-        public Place GetPlaceForCity(int cityId, int placeId)
+        public Task<Place> GetPlaceForCity(int cityId, int placeId)
         {
-            return _context.Places.FirstOrDefault(p => p.CityId == cityId && p.Id == placeId);
+            return _context.Places.FirstOrDefaultAsync(p => p.CityId == cityId && p.Id == placeId);
         }
 
         public void AddPlaceForCity(Place entity)
         {
-            _context.Places.Add(entity);
+            _context.Places.AddAsync(entity);
         }
 
         public void DeletePlaceForCity(Place entity)
@@ -73,9 +75,10 @@ namespace TripBook.API.Services
             _context.Places.Remove(entity);
         }
 
-        public bool Save()
+        public async Task<bool> Save()
         {
-            return (_context.SaveChanges() >= 0);
+            var result = await _context.SaveChangesAsync();
+            return (result >= 0);
         }
     }
 }

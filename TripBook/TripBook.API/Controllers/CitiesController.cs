@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TripBook.API.Entities;
 using TripBook.API.Models;
 using TripBook.API.Services;
@@ -21,17 +22,17 @@ namespace TripBook.API.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetCities(int id)
+        public async Task<IActionResult> GetCities(int id)
         {
-            var citiesFromRepo = _repository.GetCitiesForCountry(id);
+            var citiesFromRepo = await _repository.GetCitiesForCountry(id);
             var citiesToReturn = Mapper.Map<IEnumerable<CityDto>>(citiesFromRepo);
             return Ok(citiesToReturn);
         }
 
         [HttpGet("{cityId}", Name = "GetCity")]
-        public IActionResult GetCity(int id, int cityId)
+        public async Task<IActionResult> GetCity(int id, int cityId)
         {
-            var cityFromRepo = _repository.GetCityForCountry(id, cityId);
+            var cityFromRepo = await _repository.GetCityForCountry(id, cityId);
             if (cityFromRepo == null)
             {
                 return NotFound();
@@ -41,21 +42,21 @@ namespace TripBook.API.Controllers
         }
 
         [HttpPost()]
-        public IActionResult AddCity([FromBody] CityForCreationDto city, int id)
+        public async Task<IActionResult> AddCity([FromBody] CityForCreationDto city, int id)
         {
             if (city == null)
             {
                 return BadRequest();
             }
             var cityToAdd = Mapper.Map<City>(city);
-            var country = _repository.GetCountry(id);
+            var country = await _repository.GetCountry(id);
             if (country == null)
             {
                 return NotFound();
             }
             cityToAdd.CountryId = country.Id;
             _repository.AddCityForCountry(cityToAdd);
-            if (!_repository.Save())
+            if (!await _repository.Save())
             {
                 throw new Exception("Failed");
             }
@@ -64,15 +65,15 @@ namespace TripBook.API.Controllers
         }
 
         [HttpDelete("{cityId}")]
-        public IActionResult DeleteCity(int cityId, int id)
+        public async Task<IActionResult> DeleteCity(int cityId, int id)
         {
-            var cityToDelete = _repository.GetCityForCountry(id, cityId);
+            var cityToDelete = await _repository.GetCityForCountry(id, cityId);
             if (cityToDelete == null)
             {
                 return NotFound();
             }
             _repository.DeleteCityForCountry(cityToDelete);
-            if (!_repository.Save())
+            if (!await _repository.Save())
             {
                 throw new Exception("Failed");
             }
@@ -80,19 +81,19 @@ namespace TripBook.API.Controllers
         }
 
         [HttpPut("{cityId}")]
-        public IActionResult EditCity([FromBody] CityForUpdateDto city, int id, int cityId)
+        public async Task<IActionResult> EditCity([FromBody] CityForUpdateDto city, int id, int cityId)
         {
             if (city == null)
             {
                 return BadRequest();
             }
-            var cityToUpdate = _repository.GetCityForCountry(id, cityId);
+            var cityToUpdate = await _repository.GetCityForCountry(id, cityId);
             if (cityToUpdate == null)
             {
                 return NotFound();
             }
             Mapper.Map(city, cityToUpdate);
-            if (!_repository.Save())
+            if (!await _repository.Save())
             {
                 throw new Exception("Failed");
             }

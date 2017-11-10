@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TripBook.API.Entities;
 
 namespace TripBook.API.Services
 {
     public interface ITripBookRepository
     {
-        IEnumerable<Country> GetCountries();
-        Country GetCountry(int id);
+        Task<List<Country>> GetCountries();
+        Task<Country> GetCountry(int id);
         void AddCountry(Country entity);
         void DeleteCountry(Country entity);
-        IEnumerable<City> GetCitiesForCountry(int id);
-        City GetCityForCountry(int id, int cityId);
+        Task<List<City>> GetCitiesForCountry(int id);
+        Task<City> GetCityForCountry(int id, int cityId);
         void AddCityForCountry(City entity);
         void DeleteCityForCountry(City entity);
-        IEnumerable<Place> GetPlacesForCity(int cityId);
-        Place GetPlaceForCity(int cityId, int placeId);
+        Task<List<Place>> GetPlacesForCity(int cityId);
+        Task<Place> GetPlaceForCity(int cityId, int placeId);
         void AddPlaceForCity(Place entity);
         void DeletePlaceForCity(Place entity);
-        bool Save();
+        Task<bool> Save();
     }
 }

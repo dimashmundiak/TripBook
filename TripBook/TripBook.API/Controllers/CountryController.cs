@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TripBook.API.Entities;
 using TripBook.API.Models;
 using TripBook.API.Services;
 
 namespace TripBook.API.Controllers
 {
-    [Authorize()]
     [Route("api/countries")]
     public class CountriesController : Controller
     {
@@ -21,17 +21,17 @@ namespace TripBook.API.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetCountries()
+        public async Task<IActionResult> GetCountries()
         {
-            var countriesFromRepo = _repository.GetCountries();
+            var countriesFromRepo = await _repository.GetCountries();
             var countriesToReturn = Mapper.Map<IEnumerable<CountryDto>>(countriesFromRepo);
             return Ok(countriesToReturn);
         }
 
         [HttpGet("{id}", Name = "GetCountry")]
-        public IActionResult GetCountry(int id)
+        public async Task<IActionResult> GetCountry(int id)
         {
-            var countryToReturn = _repository.GetCountry(id);
+            var countryToReturn = await _repository.GetCountry(id);
             if (countryToReturn == null)
             {
                 return NotFound();
@@ -41,7 +41,7 @@ namespace TripBook.API.Controllers
         }
 
         [HttpPost()]
-        public IActionResult AddCountry([FromBody] CountryForCreationDto country)
+        public async Task<IActionResult> AddCountry([FromBody] CountryForCreationDto country)
         {
             if (country == null)
             {
@@ -49,7 +49,7 @@ namespace TripBook.API.Controllers
             }
             var countryToAdd = Mapper.Map<Country>(country);
             _repository.AddCountry(countryToAdd);
-            if (!_repository.Save())
+            if (!await _repository.Save())
             {
                 throw new Exception("Failed");
             }
@@ -58,15 +58,15 @@ namespace TripBook.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteCountry(int id)
+        public async Task<IActionResult> DeleteCountry(int id)
         {
-            var countryToDelete = _repository.GetCountry(id);
+            var countryToDelete = await _repository.GetCountry(id);
             if (countryToDelete == null)
             {
                 return NotFound();
             }
             _repository.DeleteCountry(countryToDelete);
-            if (!_repository.Save())
+            if (!await _repository.Save())
             {
                 throw new Exception("Failed");
             }
@@ -74,19 +74,19 @@ namespace TripBook.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditCounty([FromBody] CountryForUpdateDto country, int id)
+        public async Task<IActionResult> EditCounty([FromBody] CountryForUpdateDto country, int id)
         {
             if (country == null)
             {
                 return BadRequest();
             }
-            var countryToUpdate = _repository.GetCountry(id);
+            var countryToUpdate = await _repository.GetCountry(id);
             if (countryToUpdate == null)
             {
                 return NotFound();
             }
             Mapper.Map(country, countryToUpdate);
-            if (!_repository.Save())
+            if (!await _repository.Save())
             {
                 throw new Exception("Failed");
             }
