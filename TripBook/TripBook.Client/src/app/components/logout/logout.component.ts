@@ -2,17 +2,17 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-protected',
-  templateUrl: './protected.component.html',
-  styleUrls: ['./protected.component.scss'],
+  selector: 'app-logout',
+  templateUrl: './logout.component.html',
+  styleUrls: ['./logout.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProtectedComponent implements OnInit {
+export class LogoutComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    console.log(this.authService.getUser());
+    this.authService.logOut();
   }
 
 }
