@@ -1,7 +1,9 @@
+import { RegisterService } from './services/register.service';
 import { TripBookService } from './services/trip-book.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +16,7 @@ import { CallApiComponent } from './components/call-api/call-api.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { CountryListComponent } from './components/country-list/country-list.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -24,14 +27,17 @@ import { CountryListComponent } from './components/country-list/country-list.com
     CallApiComponent,
     LoginComponent,
     LogoutComponent,
-    CountryListComponent
+    CountryListComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [AuthGuardService, AuthService, TripBookService],
+  providers: [AuthGuardService, AuthService, TripBookService, RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

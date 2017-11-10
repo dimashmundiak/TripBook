@@ -1,3 +1,4 @@
+import { RegisterComponent } from './components/register/register.component';
 import { CountryListComponent } from './components/country-list/country-list.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LogoutComponent } from './components/logout/logout.component';
@@ -19,6 +20,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'auth-callback',

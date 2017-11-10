@@ -1,0 +1,18 @@
+<form [formGroup]="registerForm" class="form-inline" (ngSubmit)="register(registerForm.value)">
+  <div class="form-group">
+    <input type="text" formControlName="username" placeholder="Username" class="form-control">
+  </div>
+  <div class="form-group">
+    <input type="password" formControlName="password" placeholder="Password" class="form-control">
+  </div>
+  <div class="form-group">
+    <input type="email" formControlName="email" placeholder="Email" class="form-control">
+  </div>
+  <input type="submit" class="btn btn-secondary" value="Search" [disabled]="!registerForm.valid">
+</form>
+
+<ul>
+  <li *ngFor="let error of errors">
+    {{error.description}}
+  </li>
+</ul>

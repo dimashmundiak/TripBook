@@ -2,6 +2,8 @@ export const SERVER_URL: string = 'https://localhost:44360';
 
 export const COUNTRIES_URL: string = '/api/countries';
 
+export const REGISTER_URL: string = '/register';
+
 
 
 
