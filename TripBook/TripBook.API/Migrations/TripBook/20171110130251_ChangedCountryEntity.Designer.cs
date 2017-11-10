@@ -8,9 +8,10 @@ using TripBook.API.Entities;
 namespace TripBook.API.Migrations.TripBook
 {
     [DbContext(typeof(TripBookContext))]
-    partial class TripBookContextModelSnapshot : ModelSnapshot
+    [Migration("20171110130251_ChangedCountryEntity")]
+    partial class ChangedCountryEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.3")
@@ -42,8 +43,6 @@ namespace TripBook.API.Migrations.TripBook
                     b.Property<string>("ImageUrl");
 
                     b.Property<string>("Name");
-
-                    b.Property<double>("Rating");
 
                     b.HasKey("Id");
 

@@ -8,9 +8,10 @@ using TripBook.API.Entities;
 namespace TripBook.API.Migrations.TripBook
 {
     [DbContext(typeof(TripBookContext))]
-    partial class TripBookContextModelSnapshot : ModelSnapshot
+    [Migration("20171110133913_AddedRatingForCountryEntity")]
+    partial class AddedRatingForCountryEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.3")
