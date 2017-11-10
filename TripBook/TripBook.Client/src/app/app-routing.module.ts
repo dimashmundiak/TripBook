@@ -1,14 +1,23 @@
+import { CountryListComponent } from './components/country-list/country-list.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { LogoutComponent } from './components/logout/logout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProtectedComponent } from './components/protected/protected.component';
+
 import { AuthGuardService } from './services/auth-guard.service';
+
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
 import { CallApiComponent } from './components/call-api/call-api.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   {
-    path: 'protected',
-    component: ProtectedComponent,
+    path: '',
+    component: WelcomeComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
     canActivate: [AuthGuardService]
   },
   {
@@ -16,8 +25,12 @@ const routes: Routes = [
     component: AuthCallbackComponent
   },
   {
-    path: 'call-api',
-    component: CallApiComponent,
+    path: 'countries',
+    component: CountryListComponent
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
     canActivate: [AuthGuardService]
   }
 ];
