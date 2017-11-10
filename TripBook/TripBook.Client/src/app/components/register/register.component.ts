@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
 import { RegisterService } from './../../services/register.service';
-import { REGISTER_URL } from './../../services/constants';
+import { REGISTER_URL } from './../../shared/constants';
 import { Http, Headers } from '@angular/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SERVER_URL } from '../../services/constants';
+import { SERVER_URL } from '../../shared/constants';
 
 @Component({
   selector: 'app-register',

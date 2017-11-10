@@ -1,5 +1,16 @@
-<ul>
-    <li *ngFor="let country of countries">
-        {{country.id}} {{country.name}}
-    </li>
-</ul>
+<div class="col-md-6 col-lg-4 search">
+    <input class="form-control" type="text" [(ngModel)]="searchQuery">
+</div>
+
+<div class="container-fluid">
+    <div class="row justify-content-around">
+        <div *ngFor="let country of countries | filter: searchQuery" routerLink="/countries/country.id" class="card col-lg-3">
+            <img class="card-img-top" style="width: 100%; height: 15rem;" src="{{country.imageUrl}}" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">{{country.name}}</h4>
+                <p class="card-text">{{country.description}}</p>
+                <app-rating [rating]="country.rating"></app-rating>
+            </div>
+        </div>
+    </div>
+</div>

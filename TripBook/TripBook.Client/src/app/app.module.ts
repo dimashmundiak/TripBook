@@ -1,3 +1,4 @@
+import { FilterPipe } from './shared/filter.pipe';
 import { RegisterService } from './services/register.service';
 import { TripBookService } from './services/trip-book.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,6 +18,7 @@ import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { CountryListComponent } from './components/country-list/country-list.component';
 import { RegisterComponent } from './components/register/register.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { RegisterComponent } from './components/register/register.component';
     LoginComponent,
     LogoutComponent,
     CountryListComponent,
-    RegisterComponent
+    RegisterComponent,
+    FilterPipe,
+    RatingComponent
   ],
   imports: [
     BrowserModule,

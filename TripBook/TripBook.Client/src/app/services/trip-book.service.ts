@@ -1,7 +1,7 @@
 import { AuthService } from './auth.service';
 import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { SERVER_URL, COUNTRIES_URL } from './constants';
+import { SERVER_URL, COUNTRIES_URL } from '../shared/constants';
 
 @Injectable()
 export class TripBookService {

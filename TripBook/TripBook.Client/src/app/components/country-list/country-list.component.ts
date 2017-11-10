@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { TripBookService } from './../../services/trip-book.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
@@ -11,13 +12,17 @@ export class CountryListComponent implements OnInit {
 
   countries: any[] = [];
 
-  constructor(private tripService: TripBookService) { }
+  constructor(private tripService: TripBookService, private router: Router) { }
 
   ngOnInit() {
     this.tripService.loadCountries().then(response => {
       console.log(response);
       this.countries = response;
     }).catch(error => console.log(error));
+  }
+
+  show(id) {
+    this.router.navigateByUrl('/countries/'+id);
   }
 
 }

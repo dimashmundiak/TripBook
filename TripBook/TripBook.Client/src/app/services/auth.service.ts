@@ -4,7 +4,7 @@ import { UserManager, UserManagerSettings, User } from 'oidc-client';
 
 @Injectable()
 export class AuthService {
-  private manager: UserManager = new UserManager(getClientSettings());
+  private manager: UserManager = new UserManager(getClientSettingsLocal());
   private user: User = null;
 
   constructor() {
