@@ -14,6 +14,6 @@ export class AuthCallbackComponent implements OnInit {
 
   ngOnInit() {
     this.authService.completeAuthentication();
-    this.router.navigateByUrl('/protected');
+    this.router.navigateByUrl('/');
   }
 }

@@ -14,7 +14,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    console.log("log");
     return this.user != null && !this.user.expired;
   }
 
@@ -39,6 +38,10 @@ export class AuthService {
       this.user = user;
     });
   }
+
+  logOut() {
+    return this.manager.signoutRedirect();
+  }
 }
 
 export function getClientSettings(): UserManagerSettings {
@@ -47,6 +50,19 @@ export function getClientSettings(): UserManagerSettings {
     client_id: 'angular_spa',
     redirect_uri: 'https://localhost:44363/auth-callback',
     post_logout_redirect_uri: 'https://localhost:44363/',
+    response_type: "id_token token",
+    scope: "openid profile api1 role",
+    filterProtocolClaims: true,
+    loadUserInfo: true
+  };
+}
+
+export function getClientSettingsLocal(): UserManagerSettings {
+  return {
+    authority: 'https://localhost:44360/',
+    client_id: 'angular_spa_local',
+    redirect_uri: 'http://localhost:4200/auth-callback',
+    post_logout_redirect_uri: 'http://localhost:4200/',
     response_type: "id_token token",
     scope: "openid profile api1 role",
     filterProtocolClaims: true,
