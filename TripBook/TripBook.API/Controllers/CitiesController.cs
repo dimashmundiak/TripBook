@@ -10,7 +10,6 @@ using TripBook.API.Services;
 
 namespace TripBook.API.Controllers
 {
-    [Authorize]
     [Route("api/countries/{id}/cities")]
     public class CitiesController : Controller
     {

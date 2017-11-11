@@ -31,12 +31,15 @@ namespace TripBook.API.Controllers
         [HttpGet("{id}", Name = "GetCountry")]
         public async Task<IActionResult> GetCountry(int id)
         {
-            var countryToReturn = await _repository.GetCountry(id);
-            if (countryToReturn == null)
+            var countryFromRepo = await _repository.GetCountry(id);
+            if (countryFromRepo == null)
             {
                 return NotFound();
             }
-
+            var countryToReturn = Mapper.Map<CountryDto>(countryFromRepo);
+            var citiesFromRepo = await _repository.GetCitiesForCountry(id);
+            var citiesToReturn = Mapper.Map<IEnumerable<CityDto>>(citiesFromRepo);
+            countryToReturn.Cities = citiesToReturn;
             return Ok(countryToReturn);
         }
 

@@ -1,4 +1,7 @@
-﻿namespace TripBook.API.Models
+﻿using System.Collections.Generic;
+using TripBook.API.Entities;
+
+namespace TripBook.API.Models
 {
     public class CountryDto
     {
@@ -7,5 +10,6 @@
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public double Rating { get; set; }
+        public IEnumerable<CityDto> Cities { get; set; }
     }
 }
