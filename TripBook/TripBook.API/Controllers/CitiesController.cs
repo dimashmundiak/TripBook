@@ -37,6 +37,9 @@ namespace TripBook.API.Controllers
                 return NotFound();
             }
             var cityToReturn = Mapper.Map<CityDto>(cityFromRepo);
+            var placesFromRepo = await _repository.GetPlacesForCity(cityId);
+            var placesToReturn = Mapper.Map<IEnumerable<PlaceDto>>(placesFromRepo);
+            cityToReturn.Places = placesToReturn;
             return Ok(cityToReturn);
         }
 

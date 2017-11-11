@@ -8,9 +8,10 @@ using TripBook.API.Entities;
 namespace TripBook.API.Migrations.TripBook
 {
     [DbContext(typeof(TripBookContext))]
-    partial class TripBookContextModelSnapshot : ModelSnapshot
+    [Migration("20171111184153_AddedImageForPlace")]
+    partial class AddedImageForPlace
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.3")
@@ -34,22 +35,6 @@ namespace TripBook.API.Migrations.TripBook
                     b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
-                });
-
-            modelBuilder.Entity("TripBook.API.Entities.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Content");
-
-                    b.Property<int>("PlaceId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlaceId");
-
-                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("TripBook.API.Entities.Country", b =>
@@ -95,14 +80,6 @@ namespace TripBook.API.Migrations.TripBook
                     b.HasOne("TripBook.API.Entities.Country", "Country")
                         .WithMany("Cities")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TripBook.API.Entities.Comment", b =>
-                {
-                    b.HasOne("TripBook.API.Entities.Place", "Place")
-                        .WithMany("Comments")
-                        .HasForeignKey("PlaceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

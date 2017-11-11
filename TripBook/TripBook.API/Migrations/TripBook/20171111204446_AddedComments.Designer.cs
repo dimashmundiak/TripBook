@@ -8,9 +8,10 @@ using TripBook.API.Entities;
 namespace TripBook.API.Migrations.TripBook
 {
     [DbContext(typeof(TripBookContext))]
-    partial class TripBookContextModelSnapshot : ModelSnapshot
+    [Migration("20171111204446_AddedComments")]
+    partial class AddedComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.3")

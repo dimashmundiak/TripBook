@@ -18,6 +18,8 @@ namespace TripBook.API.Services
         Task<Place> GetPlaceForCity(int cityId, int placeId);
         void AddPlaceForCity(Place entity);
         void DeletePlaceForCity(Place entity);
+        void AddCommentForPlace(Comment entity);
+        Task<List<Comment>> GetCommentsForPlace(int placeId);
         Task<bool> Save();
     }
 }

@@ -10,7 +10,6 @@ using TripBook.API.Services;
 
 namespace TripBook.API.Controllers
 {
-    [Authorize]
     [Route("api/countries/{id}/cities/{cityId}/places")]
     public class PlacesController : Controller
     {
@@ -37,7 +36,10 @@ namespace TripBook.API.Controllers
             {
                 return NotFound();
             }
-            var placeToReturn = Mapper.Map<CityDto>(placeFromRepo);
+            var placeToReturn = Mapper.Map<PlaceDto>(placeFromRepo);
+            var commentsFromRepo = await _repository.GetCommentsForPlace(placeId);
+            var commentsToReturn = Mapper.Map<IEnumerable<CommentDto>>(commentsFromRepo);
+            placeToReturn.Comments = commentsToReturn;
             return Ok(placeToReturn);
         }
 

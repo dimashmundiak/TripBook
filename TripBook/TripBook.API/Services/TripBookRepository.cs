@@ -75,6 +75,16 @@ namespace TripBook.API.Services
             _context.Places.Remove(entity);
         }
 
+        public void AddCommentForPlace(Comment entity)
+        {
+            _context.Comments.AddAsync(entity);
+        }
+
+        public Task<List<Comment>> GetCommentsForPlace(int placeId)
+        {
+            return _context.Comments.Where(c => c.PlaceId == placeId).ToListAsync();
+        }
+
         public async Task<bool> Save()
         {
             var result = await _context.SaveChangesAsync();
