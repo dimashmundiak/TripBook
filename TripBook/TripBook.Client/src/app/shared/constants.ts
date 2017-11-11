@@ -1,8 +1,12 @@
 export const SERVER_URL: string = 'https://localhost:44360';
 
 export const COUNTRIES_URL: string = '/api/countries';
+export const CITY_URL: string = '/cities';
+export const PLACE_URL: string = '/places';
 
 export const REGISTER_URL: string = '/register';
+
+
 
 
 

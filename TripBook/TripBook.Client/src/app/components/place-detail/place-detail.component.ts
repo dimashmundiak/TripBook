@@ -3,15 +3,14 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-city-detail',
-  templateUrl: './city-detail.component.html',
-  styleUrls: ['./city-detail.component.scss'],
+  selector: 'app-place-detail',
+  templateUrl: './place-detail.component.html',
+  styleUrls: ['./place-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class CityDetailComponent implements OnInit {
+export class PlaceDetailComponent implements OnInit {
 
-  countryId: number = 0;
-  city: any = new Object();
+  place: any = new Object()
 
   constructor(
     private tripService: TripBookService,
@@ -21,8 +20,8 @@ export class CityDetailComponent implements OnInit {
   ngOnInit() {
     var id = this.activatedRoute.snapshot.paramMap.get('id');
     var cityId = this.activatedRoute.snapshot.paramMap.get('cityId');
-    this.countryId = +cityId;
-    this.tripService.loadCity(id, cityId).then(response => this.city = response).catch(error => console.log(error));
+    var placeId = this.activatedRoute.snapshot.paramMap.get('placeId');
+    this.tripService.loadPlace(id, cityId, placeId).then(response => this.place = response).catch(error => console.log(error));
   }
 
 }
