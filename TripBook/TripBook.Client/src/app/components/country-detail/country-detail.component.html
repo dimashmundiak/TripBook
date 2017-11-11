@@ -1,0 +1,28 @@
+<div class="container" style="margin-bottom: 100px;">
+  <div class="row">
+    <div class="content col-lg-8">
+      <div>{{country.name}} </div>
+      <div>{{country.description}}</div>
+    </div>
+    <div class="image col-lg-4">
+      <img style="height: 20rem; width: 100%;" src="{{country.imageUrl}}">
+    </div>
+  </div>
+</div>
+
+<div class="col-md-6 col-lg-4 search">
+  <input class="form-control" type="text" [(ngModel)]="searchQuery">
+</div>
+
+<div class="container-fluid">
+  <div class="row justify-content-around">
+    <div *ngFor="let city of country.cities | filter: searchQuery" routerLink="/country/{{country.id}}/city/{{city.id}}" class="card col-lg-3">
+      <img class="card-img-top" style="width: 100%; height: 15rem;" src="{{city.imageUrl}}" alt="Card image cap">
+      <div class="card-block">
+        <h4 class="card-title">{{city.id}}</h4>
+        <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-height: 200px;">{{city.name}}</p>
+        <!--<app-rating [rating]="country.rating"></app-rating>-->
+      </div>
+    </div>
+  </div>
+</div>
