@@ -22,6 +22,20 @@ export class TripBookService {
       .catch(this.handleError);
   }
 
+  loadCountry(id) {
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.get(SERVER_URL + COUNTRIES_URL + '/'+id, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }

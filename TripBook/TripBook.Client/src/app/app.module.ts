@@ -19,6 +19,8 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { CountryListComponent } from './components/country-list/country-list.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { CountryDetailComponent } from './components/country-detail/country-detail.component';
+import { CityDetailComponent } from './components/city-detail/city-detail.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { RatingComponent } from './components/rating/rating.component';
     CountryListComponent,
     RegisterComponent,
     FilterPipe,
-    RatingComponent
+    RatingComponent,
+    CountryDetailComponent,
+    CityDetailComponent
   ],
   imports: [
     BrowserModule,
