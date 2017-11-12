@@ -29,6 +29,7 @@ namespace TripBook.API.Controllers
                 return NotFound();
             }
             var commentToAdd = Mapper.Map<Comment>(newComment);
+            commentToAdd.Date = DateTime.Now;
             _repository.AddCommentForPlace(commentToAdd);
             if (!await _repository.Save())
             {

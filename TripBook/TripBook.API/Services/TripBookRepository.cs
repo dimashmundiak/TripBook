@@ -82,7 +82,7 @@ namespace TripBook.API.Services
 
         public Task<List<Comment>> GetCommentsForPlace(int placeId)
         {
-            return _context.Comments.Where(c => c.PlaceId == placeId).ToListAsync();
+            return _context.Comments.Where(c => c.PlaceId == placeId).OrderByDescending(c=>c.Date).ToListAsync();
         }
 
         public async Task<bool> Save()
