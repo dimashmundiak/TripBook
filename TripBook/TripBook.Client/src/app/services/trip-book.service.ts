@@ -63,6 +63,25 @@ export class TripBookService {
       .catch(this.handleError);
   }
 
+  addComment(id, cityId, placeId, content, name) {
+    let body = JSON.stringify({
+      placeId: placeId,
+      content: content,
+      author: name
+    });
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.post(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId + PLACE_URL + '/' + placeId + '/comment', body, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }

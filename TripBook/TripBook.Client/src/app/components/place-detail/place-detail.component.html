@@ -9,3 +9,39 @@
     </div>
   </div>
 </div>
+
+<form [formGroup]="commentForm" class="form-inline" *ngIf="authService.isLoggedIn()" (ngSubmit)="addComment(commentForm.value)">
+  <div class="form-group">
+    <input type="text" formControlName="content" placeholder="Content" class="form-control">
+  </div>
+  <input type="submit" class="btn btn-secondary" value="Add" [disabled]="!commentForm.valid">
+</form>
+
+<div class="row block">
+  <div class="col-12">
+    <div class="row justify-content-center">
+      <h3>Comments</h3>
+    </div>
+    <div class="row">
+      <ul class="list-group col-12">
+        <li *ngFor="let comment of place.comments" class="list-group-item comment">
+          <div class="row">
+            <div class="col-2 comment-user-info mx-auto">
+              <div class="row justify-content-center">
+                <p class="text-center">
+                  <strong>{{comment.id}}</strong>
+                </p>
+              </div>
+
+            </div>
+            <div class="col-10">
+              {{comment.author}}
+              {{comment.date | date:'full' }}
+              {{comment.content}} 
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
