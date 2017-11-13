@@ -1,9 +1,37 @@
+<div *ngIf="admin">
+  <button class="btn btn-danger" (click)="deletePlace()">Delete place</button>
+</div>
+
+<p *ngIf="admin">
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#edit" aria-expanded="false" aria-controls="edit">
+    Edit place info
+  </button>
+</p>
+<div class="collapse" id="edit">
+  <form [formGroup]="editForm" class="form-inline" (ngSubmit)="editPlace(editForm.value)">
+    <div class="form-group">
+      <input type="text" value="{{place.name}}" formControlName="name" placeholder="Name" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="text" value="{{place.description}}" formControlName="description" placeholder="Description" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="url" value="{{place.imageUrl}}" formControlName="imageUrl" placeholder="Image Url" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="number" value="{{place.rating}}" formControlName="rating" placeholder="Rating" class="form-control">
+    </div>
+    <input type="submit" class="btn btn-secondary" value="Edit" [disabled]="!editForm.valid">
+  </form>
+</div>
+
+
 <div class="container" style="margin-bottom: 100px;">
   <div class="row">
     <div class="content col-lg-8">
       <div>{{place.name}} </div>
       <div>{{place.description}}</div>
-      <button (click)="addToFavourite()">
+      <button (click)="addToFavourite()" *ngIf="authService.isLoggedIn()">
         <i *ngIf="!favourite" class="fa fa-star-o" aria-hidden="true"></i>
         <i *ngIf="favourite" class="fa fa-star" aria-hidden="true"></i>
       </button>

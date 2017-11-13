@@ -1,3 +1,53 @@
+<div *ngIf="admin">
+  <button class="btn btn-danger" (click)="deleteCity()">Delete city</button>
+</div>
+
+<p *ngIf="admin">
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#edit" aria-expanded="false" aria-controls="edit">
+    Edit city info
+  </button>
+</p>
+<div class="collapse" id="edit">
+  <form [formGroup]="editForm" class="form-inline" (ngSubmit)="editCity(editForm.value)">
+    <div class="form-group">
+      <input type="text" value="{{city.name}}" formControlName="name" placeholder="Name" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="text" value="{{city.description}}" formControlName="description" placeholder="Description" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="url" value="{{city.imageUrl}}" formControlName="imageUrl" placeholder="Image Url" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="number" value="{{city.rating}}" formControlName="rating" placeholder="Rating" class="form-control">
+    </div>
+    <input type="submit" class="btn btn-secondary" value="Edit" [disabled]="!editForm.valid">
+  </form>
+</div>
+
+<p *ngIf="admin">
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#add" aria-expanded="false" aria-controls="add">
+    Add new city
+  </button>
+</p>
+<div class="collapse" id="add">
+  <form [formGroup]="addForm" class="form-inline" (ngSubmit)="addPlace(addForm.value)">
+    <div class="form-group">
+      <input type="text" formControlName="name" placeholder="Name" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="text" formControlName="description" placeholder="Description" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="url" formControlName="imageUrl" placeholder="Image Url" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="number" formControlName="rating" placeholder="Rating" class="form-control">
+    </div>
+    <input type="submit" class="btn btn-secondary" value="Add" [disabled]="!addForm.valid">
+  </form>
+</div>
+
 <div class="container" style="margin-bottom: 100px;">
   <div class="row">
     <div class="content col-lg-8">
@@ -16,7 +66,8 @@
 
 <div class="container-fluid">
   <div class="row justify-content-around">
-    <div *ngFor="let place of city.places | filter: searchQuery" routerLink="/country/{{countryId}}/city/{{city.id}}/place/{{place.id}}" class="card col-lg-3">
+    <div *ngFor="let place of city.places | filter: searchQuery" routerLink="/country/{{id}}/city/{{cityId}}/place/{{place.id}}"
+      class="card col-lg-3">
       <img class="card-img-top" style="width: 100%; height: 15rem;" src="{{place.imageUrl}}" alt="Card image cap">
       <div class="card-block">
         <h4 class="card-title">{{place.id}}</h4>

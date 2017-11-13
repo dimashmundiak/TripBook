@@ -1,3 +1,55 @@
+<div *ngIf="admin">
+  <button class="btn btn-danger" (click)="deleteCountry()">Delete country</button>
+</div>
+
+<p *ngIf="admin">
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#edit" aria-expanded="false"
+    aria-controls="edit">
+    Edit country info
+  </button>
+</p>
+<div class="collapse" id="edit">
+  <form [formGroup]="editForm" class="form-inline" (ngSubmit)="editCountry(editForm.value)">
+    <div class="form-group">
+      <input type="text" value="{{country.name}}" formControlName="name" placeholder="Name" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="text" value="{{country.description}}" formControlName="description" placeholder="Description" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="url" value="{{country.imageUrl}}" formControlName="imageUrl" placeholder="Image Url" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="number" value="{{country.rating}}" formControlName="rating" placeholder="Rating" class="form-control">
+    </div>
+    <input type="submit" class="btn btn-secondary" value="Edit" [disabled]="!editForm.valid">
+  </form>
+</div>
+
+<p *ngIf="admin">
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#add" aria-expanded="false"
+    aria-controls="add">
+    Add new city
+  </button>
+</p>
+<div class="collapse" id="add">
+  <form [formGroup]="addForm" class="form-inline" (ngSubmit)="addCity(addForm.value)">
+    <div class="form-group">
+      <input type="text" formControlName="name" placeholder="Name" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="text" formControlName="description" placeholder="Description" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="url" formControlName="imageUrl" placeholder="Image Url" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="number" formControlName="rating" placeholder="Rating" class="form-control">
+    </div>
+    <input type="submit" class="btn btn-secondary" value="Add" [disabled]="!addForm.valid">
+  </form>
+</div>
+
 <div class="container" style="margin-bottom: 100px;">
   <div class="row">
     <div class="content col-lg-8">
