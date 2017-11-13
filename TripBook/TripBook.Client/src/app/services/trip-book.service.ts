@@ -1,4 +1,4 @@
-import { CITY_URL, PLACE_URL } from './../shared/constants';
+import { CITY_URL, PLACE_URL, USER_URL } from './../shared/constants';
 import { AuthService } from './auth.service';
 import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -78,6 +78,53 @@ export class TripBookService {
     }
 
     return this.http.post(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId + PLACE_URL + '/' + placeId + '/comment', body, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  loadUser(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.get(SERVER_URL + USER_URL + '/' + id, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  isFavorite(id, placeId) {
+    let body = JSON.stringify({
+      id: placeId
+    });
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.post(SERVER_URL + USER_URL + '/' + id, body, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  addToFavourite(id, cityId, placeId, userId) {
+    let body = JSON.stringify({
+      id: userId
+    });
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.post(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId + PLACE_URL + '/' + placeId + '/favourite', body, { headers: headers }).toPromise()
       .then(response => response.json())
       .catch(this.handleError);
   }

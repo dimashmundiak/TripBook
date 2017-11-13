@@ -5,6 +5,7 @@ export const CITY_URL: string = '/cities';
 export const PLACE_URL: string = '/places';
 
 export const REGISTER_URL: string = '/register';
+export const USER_URL: string = '/user';
 
 
 
@@ -15,7 +16,6 @@ export const REGISTER_URL: string = '/register';
 
 export const LOGOUT_URL: string = '/api/logout';
 
-export const USER_URL: string = '/api/user';
 export const ISSUES_URL: string = '/api/issues';
 export const ISSUE_DETAILS_URL: string = '/api/issues/details';
 

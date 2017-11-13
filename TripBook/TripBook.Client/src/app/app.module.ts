@@ -22,6 +22,7 @@ import { RatingComponent } from './components/rating/rating.component';
 import { CountryDetailComponent } from './components/country-detail/country-detail.component';
 import { CityDetailComponent } from './components/city-detail/city-detail.component';
 import { PlaceDetailComponent } from './components/place-detail/place-detail.component';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PlaceDetailComponent } from './components/place-detail/place-detail.com
     RatingComponent,
     CountryDetailComponent,
     CityDetailComponent,
-    PlaceDetailComponent
+    PlaceDetailComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

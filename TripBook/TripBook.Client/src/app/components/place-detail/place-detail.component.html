@@ -3,6 +3,10 @@
     <div class="content col-lg-8">
       <div>{{place.name}} </div>
       <div>{{place.description}}</div>
+      <button (click)="addToFavourite()">
+        <i *ngIf="!favourite" class="fa fa-star-o" aria-hidden="true"></i>
+        <i *ngIf="favourite" class="fa fa-star" aria-hidden="true"></i>
+      </button>
     </div>
     <div class="image col-lg-4">
       <img style="height: 20rem; width: 100%;" src="{{place.imageUrl}}">
@@ -35,9 +39,7 @@
 
             </div>
             <div class="col-10">
-              {{comment.author}}
-              {{comment.date | date:'full' }}
-              {{comment.content}} 
+              {{comment.author}} {{comment.date | date:'full' }} {{comment.content}}
             </div>
           </div>
         </li>

@@ -17,6 +17,7 @@ export class PlaceDetailComponent implements OnInit {
   id: string;
   cityId: string;
   placeId: string;
+  favourite: boolean;
 
   constructor(
     private tripService: TripBookService,
@@ -34,6 +35,7 @@ export class PlaceDetailComponent implements OnInit {
     this.cityId = this.activatedRoute.snapshot.paramMap.get('cityId');
     this.placeId = this.activatedRoute.snapshot.paramMap.get('placeId');
     this.load();
+    this.isFavourite();
   }
 
   addComment(values) {
@@ -44,6 +46,14 @@ export class PlaceDetailComponent implements OnInit {
 
   load() {
     this.tripService.loadPlace(this.id, this.cityId, this.placeId).then(response => this.place = response).catch(error => console.log(error));
+  }
+
+  isFavourite(){
+    this.tripService.isFavorite(this.authService.getUser().profile.sub, this.placeId).then(response => this.favourite = response.result).catch(error => console.log(error));
+  }
+
+  addToFavourite(){
+    this.tripService.addToFavourite(this.id, this.cityId, this.placeId, this.authService.getUser().profile.sub).then(()=>this.isFavourite()).catch(error => console.log(error));
   }
 
 }
