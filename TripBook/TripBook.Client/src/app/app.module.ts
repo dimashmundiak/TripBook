@@ -23,6 +23,7 @@ import { CountryDetailComponent } from './components/country-detail/country-deta
 import { CityDetailComponent } from './components/city-detail/city-detail.component';
 import { PlaceDetailComponent } from './components/place-detail/place-detail.component';
 import { AccountComponent } from './components/account/account.component';
+import { SilentRefreshComponent } from './components/silent-refresh/silent-refresh.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AccountComponent } from './components/account/account.component';
     CountryDetailComponent,
     CityDetailComponent,
     PlaceDetailComponent,
-    AccountComponent
+    AccountComponent,
+    SilentRefreshComponent
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@ import { AuthCallbackComponent } from './components/auth-callback/auth-callback.
 import { CallApiComponent } from './components/call-api/call-api.component';
 import { LoginComponent } from './components/login/login.component';
 import { CityDetailComponent } from './components/city-detail/city-detail.component';
+import { SilentRefreshComponent } from './components/silent-refresh/silent-refresh.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardService] },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService] },
   { path: 'register', component: RegisterComponent },
+  { path: 'silent-refresh', component: SilentRefreshComponent },
   { path: 'auth-callback', component: AuthCallbackComponent },
   { path: 'countries', component: CountryListComponent },
   { path: 'country/:id', component: CountryDetailComponent },

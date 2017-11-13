@@ -9,6 +9,8 @@ export class TripBookService {
 
   constructor(private http: Http, private authService: AuthService) { }
 
+
+  //Countries methods
   loadCountries() {
 
     let headers = new Headers();
@@ -37,6 +39,61 @@ export class TripBookService {
       .catch(this.handleError);
   }
 
+  addCountry(values) {
+    let body = JSON.stringify({
+      name: values.name,
+      description: values.description,
+      imageUrl: values.imageUrl,
+      rating: values.rating
+    });
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.post(SERVER_URL + COUNTRIES_URL, body, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  deleteCountry(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.delete(SERVER_URL + COUNTRIES_URL + '/' + id, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  editCountry(values, id) {
+    let body = JSON.stringify({
+      name: values.name,
+      description: values.description,
+      imageUrl: values.imageUrl,
+      rating: values.rating
+    });
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.put(SERVER_URL + COUNTRIES_URL + '/' + id, body, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+
+  //City methods
   loadCity(id, cityId) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -50,6 +107,81 @@ export class TripBookService {
       .catch(this.handleError);
   }
 
+  addCity(values, id) {
+    let body = JSON.stringify({
+      name: values.name,
+      description: values.description,
+      imageUrl: values.imageUrl,
+      rating: values.rating
+    });
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.post(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL, body, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  deleteCity(id, cityId) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.delete(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  editCity(values, id, cityId) {
+    let body = JSON.stringify({
+      name: values.name,
+      description: values.description,
+      imageUrl: values.imageUrl,
+      rating: values.rating
+    });
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.put(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId, body, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+
+  //Place methods
+  addPlace(values, id, cityId) {
+    let body = JSON.stringify({
+      name: values.name,
+      description: values.description,
+      imageUrl: values.imageUrl,
+      rating: values.rating
+    });
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.post(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId + PLACE_URL, body, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
   loadPlace(id, cityId, placeId) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -59,6 +191,39 @@ export class TripBookService {
     }
 
     return this.http.get(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId + PLACE_URL + '/' + placeId, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  deletePlace(id, cityId, placeId) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.delete(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId + PLACE_URL + '/' + placeId, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  editPlace(values, id, cityId, placeId) {
+    let body = JSON.stringify({
+      name: values.name,
+      description: values.description,
+      imageUrl: values.imageUrl,
+      rating: values.rating
+    });
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.put(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId + PLACE_URL + '/' + placeId, body, { headers: headers }).toPromise()
       .then(response => response.json())
       .catch(this.handleError);
   }
@@ -78,19 +243,6 @@ export class TripBookService {
     }
 
     return this.http.post(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId + PLACE_URL + '/' + placeId + '/comment', body, { headers: headers }).toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
-  }
-
-  loadUser(id) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
-    if (this.authService.isLoggedIn()) {
-      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
-    }
-
-    return this.http.get(SERVER_URL + USER_URL + '/' + id, { headers: headers }).toPromise()
       .then(response => response.json())
       .catch(this.handleError);
   }
@@ -125,6 +277,21 @@ export class TripBookService {
     }
 
     return this.http.post(SERVER_URL + COUNTRIES_URL + '/' + id + CITY_URL + '/' + cityId + PLACE_URL + '/' + placeId + '/favourite', body, { headers: headers }).toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+
+  //User methods
+  loadUser(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    if (this.authService.isLoggedIn()) {
+      headers.append('Authorization', this.authService.getAuthorizationHeaderValue());
+    }
+
+    return this.http.get(SERVER_URL + USER_URL + '/' + id, { headers: headers }).toPromise()
       .then(response => response.json())
       .catch(this.handleError);
   }

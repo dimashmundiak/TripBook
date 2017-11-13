@@ -25,6 +25,10 @@ export class AuthService {
     return this.user;
   }
 
+  isAdmin() {
+    return this.user.profile.role === 'admin';
+  }
+
   getAuthorizationHeaderValue(): string {
     return `${this.user.token_type} ${this.user.access_token}`;
   }
@@ -37,6 +41,10 @@ export class AuthService {
     return this.manager.signinRedirectCallback().then(user => {
       this.user = user;
     });
+  }
+
+  refreshToken(): Promise<any>{
+    return this.manager.signinSilentCallback();
   }
 
   logOut() {
@@ -53,7 +61,9 @@ export function getClientSettings(): UserManagerSettings {
     response_type: "id_token token",
     scope: "openid profile api1 role",
     filterProtocolClaims: true,
-    loadUserInfo: true
+    loadUserInfo: true,
+    automaticSilentRenew: true,
+    silent_redirect_uri: 'http://localhost:44360/silent-refresh'
   };
 }
 
@@ -66,6 +76,8 @@ export function getClientSettingsLocal(): UserManagerSettings {
     response_type: "id_token token",
     scope: "openid profile api1 role",
     filterProtocolClaims: true,
-    loadUserInfo: true
+    loadUserInfo: true,
+    automaticSilentRenew: true,
+    silent_redirect_uri: 'http://localhost:4200/silent-refresh'
   };
 }
