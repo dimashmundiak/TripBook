@@ -8,5 +8,6 @@ namespace TripBook.API.Models
         public string Content { get; set; }
         public string Author { get; set; }
         public DateTime Date { get; set; }
+        public double Rating { get; set; }
     }
 }

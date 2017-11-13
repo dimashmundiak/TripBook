@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Authentication;
 
 namespace TripBook.API.Entities
 {
@@ -10,6 +8,7 @@ namespace TripBook.API.Entities
         public string Content { get; set; }
         public string Author { get; set; }
         public DateTime Date { get; set; }
+        public double Rating { get; set; }
         public int PlaceId { get; set; }
         public Place Place { get; set; }
     }
