@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
@@ -10,6 +11,7 @@ using TripBook.API.Services;
 
 namespace TripBook.API.Controllers
 {
+    [Authorize()]
     [Route("api/countries/{id}/cities/{cityId}/places/{placeId}/comment")]
     public class CommentController : Controller
     {

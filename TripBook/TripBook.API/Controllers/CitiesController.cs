@@ -43,6 +43,7 @@ namespace TripBook.API.Controllers
             return Ok(cityToReturn);
         }
 
+        [Authorize()]
         [HttpPost()]
         public async Task<IActionResult> AddCity([FromBody] CityForCreationDto city, int id)
         {
@@ -66,6 +67,7 @@ namespace TripBook.API.Controllers
             return CreatedAtRoute("GetCity", new { cityId = cityToReturn.Id }, cityToReturn);
         }
 
+        [Authorize()]
         [HttpDelete("{cityId}")]
         public async Task<IActionResult> DeleteCity(int cityId, int id)
         {
@@ -82,6 +84,7 @@ namespace TripBook.API.Controllers
             return NoContent();
         }
 
+        [Authorize()]
         [HttpPut("{cityId}")]
         public async Task<IActionResult> EditCity([FromBody] CityForUpdateDto city, int id, int cityId)
         {

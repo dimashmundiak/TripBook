@@ -43,6 +43,7 @@ namespace TripBook.API.Controllers
             return Ok(countryToReturn);
         }
 
+        [Authorize()]
         [HttpPost()]
         public async Task<IActionResult> AddCountry([FromBody] CountryForCreationDto country)
         {
@@ -60,6 +61,7 @@ namespace TripBook.API.Controllers
             return CreatedAtRoute("GetCountry", new {id = authorToReturn.Id}, authorToReturn);
         }
 
+        [Authorize()]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
@@ -76,6 +78,7 @@ namespace TripBook.API.Controllers
             return NoContent();
         }
 
+        [Authorize()]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditCounty([FromBody] CountryForUpdateDto country, int id)
         {
