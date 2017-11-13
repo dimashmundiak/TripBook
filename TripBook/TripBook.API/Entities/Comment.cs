@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication;
 
 namespace TripBook.API.Entities
 {

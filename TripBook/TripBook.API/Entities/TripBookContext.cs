@@ -14,5 +14,21 @@ namespace TripBook.API.Entities
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TripBookDb;Trusted_Connection=True;");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserPlace>()
+                .HasKey(t => new { t.UserId, t.PlaceId });
+
+            modelBuilder.Entity<UserPlace>()
+                .HasOne(pt => pt.User)
+                .WithMany(p => p.UserPlaces)
+                .HasForeignKey(pt => pt.UserId);
+
+            modelBuilder.Entity<UserPlace>()
+                .HasOne(pt => pt.Place)
+                .WithMany(t => t.UserPlaces)
+                .HasForeignKey(pt => pt.PlaceId);
+        }
     }
 }

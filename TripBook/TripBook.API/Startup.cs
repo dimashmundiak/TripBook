@@ -56,10 +56,12 @@ namespace TripBook.API
                 cfg.CreateMap<CityForCreationDto, City>();
                 cfg.CreateMap<CityForUpdateDto, City>();
                 cfg.CreateMap<Place, PlaceDto>();
+                cfg.CreateMap<Place, PlaceWithoutCommentsDto>();
                 cfg.CreateMap<PlaceForCreationDto, Place>();
                 cfg.CreateMap<PlaceForUpdateDto, Place>();
                 cfg.CreateMap<Comment, CommentDto>();
                 cfg.CreateMap<CommentForCreationDto, Comment>();
+                cfg.CreateMap<User, UserDto>();
             });
 
             InitializeDbTestData(app);

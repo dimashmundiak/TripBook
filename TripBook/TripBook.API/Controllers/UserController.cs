@@ -1,27 +1,33 @@
-﻿using IdentityModel;
+﻿using AutoMapper;
+using IdentityModel;
 using IdentityServer4.Test;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TripBook.API.Models;
+using TripBook.API.Services;
 
 namespace TripBook.API.Controllers
 {
-    [Route("register")]
-    public class RegisterController : Controller
+    [Authorize()]
+    public class UserController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly ITripBookRepository _repository;
 
-        public RegisterController(UserManager<IdentityUser> userManager)
+        public UserController(UserManager<IdentityUser> userManager, ITripBookRepository repository)
         {
             _userManager = userManager;
+            _repository = repository;
         }
 
-        [HttpPost()]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserForCreationDto newUser)
         {
             var userToAdd = new TestUser
@@ -54,6 +60,26 @@ namespace TripBook.API.Controllers
                 return BadRequest(a);
             }
             return NoContent();
+        }
+
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> Account(string userId)
+        {
+            var userFromRepo = await _repository.GetUser(userId);
+            var userToReturn = Mapper.Map<UserDto>(userFromRepo);
+            var placeFromRepo = userFromRepo.UserPlaces.Select(e => e.Place);
+            var placeToReturn = Mapper.Map<List<PlaceWithoutCommentsDto>>(placeFromRepo);
+            userToReturn.Places = placeToReturn;
+            return Ok(userToReturn);
+        }
+
+        [HttpPost("user/{userId}")]
+        public async Task<IActionResult> Account([FromBody] PlaceForCheckDto place, string userId)
+        {
+            var userFromRepo = await _repository.GetUser(userId);
+            var placeFromRepo = userFromRepo.UserPlaces.Select(e => e.Place).ToList();
+            var response = new {result =  placeFromRepo.Any(p => p.Id == place.Id)};
+            return Ok(response);
         }
     }
 }

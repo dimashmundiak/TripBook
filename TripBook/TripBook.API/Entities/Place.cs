@@ -11,6 +11,6 @@ namespace TripBook.API.Entities
         public int CityId { get; set; }
         public City City { get; set; }
         public List<Comment> Comments { get; set; }
-        public List<User> Users { get; set; }
+        public List<UserPlace> UserPlaces { get; set; }
     }
 }

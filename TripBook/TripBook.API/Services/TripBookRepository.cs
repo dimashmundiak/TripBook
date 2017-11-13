@@ -85,6 +85,12 @@ namespace TripBook.API.Services
             return _context.Comments.Where(c => c.PlaceId == placeId).OrderByDescending(c=>c.Date).ToListAsync();
         }
 
+        public Task<User> GetUser(string id)
+        {
+            return _context.Users.Include(u => u.UserPlaces).ThenInclude(u => u.Place)
+                .FirstOrDefaultAsync(u => u.Id == id);
+        }
+
         public async Task<bool> Save()
         {
             var result = await _context.SaveChangesAsync();

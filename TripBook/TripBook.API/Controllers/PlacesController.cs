@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TripBook.API.Entities;
 using TripBook.API.Models;
@@ -43,6 +44,7 @@ namespace TripBook.API.Controllers
             return Ok(placeToReturn);
         }
 
+        [Authorize()]
         [HttpPost()]
         public async Task<IActionResult> AddPlace([FromBody] PlaceForCreationDto place, int id, int cityId)
         {
@@ -65,6 +67,7 @@ namespace TripBook.API.Controllers
             return CreatedAtRoute("GetPlace", new { id = placeToReturn.Id }, placeToReturn);
         }
 
+        [Authorize()]
         [HttpDelete("{placeId}")]
         public async Task<IActionResult> DeleteCity(int cityId, int placeId)
         {
@@ -81,6 +84,7 @@ namespace TripBook.API.Controllers
             return NoContent();
         }
 
+        [Authorize()]
         [HttpPut("{placeId}")]
         public async Task<IActionResult> EditCity([FromBody] PlaceForUpdateDto place, int placeId, int cityId)
         {
@@ -94,6 +98,31 @@ namespace TripBook.API.Controllers
                 return NotFound();
             }
             Mapper.Map(place, placeToUpdate);
+            if (!await _repository.Save())
+            {
+                throw new Exception("Failed");
+            }
+            return NoContent();
+        }
+
+        [Authorize()]
+        [HttpPost("{placeId}/favourite")]
+        public async Task<IActionResult> AddToFavourite([FromBody] UserForFavouriteDto user, int placeId)
+        {
+            var userFromRepo = await _repository.GetUser(user.Id);
+            if (userFromRepo.UserPlaces.Any(p => p.PlaceId == placeId))
+            {
+                var userPlaceToDelete = userFromRepo.UserPlaces.FirstOrDefault(p => p.PlaceId == placeId);
+                userFromRepo.UserPlaces.Remove(userPlaceToDelete);
+            }
+            else
+            {
+                userFromRepo.UserPlaces.Add(new UserPlace
+                {
+                    UserId = user.Id,
+                    PlaceId = placeId
+                });
+            }
             if (!await _repository.Save())
             {
                 throw new Exception("Failed");
