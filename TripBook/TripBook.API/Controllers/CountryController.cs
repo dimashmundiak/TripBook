@@ -57,8 +57,7 @@ namespace TripBook.API.Controllers
             {
                 throw new Exception("Failed");
             }
-            var authorToReturn = Mapper.Map<CountryDto>(countryToAdd);
-            return CreatedAtRoute("GetCountry", new {id = authorToReturn.Id}, authorToReturn);
+            return NoContent();
         }
 
         [Authorize()]

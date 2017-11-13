@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using TripBook.API.Entities;
 using TripBook.API.Models;
@@ -58,13 +59,13 @@ namespace TripBook.API.Controllers
             {
                 return NotFound();
             }
+            placeToAdd.CityId = city.Id;
             _repository.AddPlaceForCity(placeToAdd);
             if (!await _repository.Save())
             {
                 throw new Exception("Failed");
             }
-            var placeToReturn = Mapper.Map<PlaceDto>(placeToAdd);
-            return CreatedAtRoute("GetPlace", new { id = placeToReturn.Id }, placeToReturn);
+            return NoContent();
         }
 
         [Authorize()]

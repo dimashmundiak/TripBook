@@ -63,8 +63,7 @@ namespace TripBook.API.Controllers
             {
                 throw new Exception("Failed");
             }
-            var cityToReturn = Mapper.Map<CityDto>(cityToAdd);
-            return CreatedAtRoute("GetCity", new { cityId = cityToReturn.Id }, cityToReturn);
+            return NoContent();
         }
 
         [Authorize()]
