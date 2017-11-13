@@ -228,10 +228,11 @@ export class TripBookService {
       .catch(this.handleError);
   }
 
-  addComment(id, cityId, placeId, content, name) {
+  addComment(id, cityId, placeId, values, name) {
     let body = JSON.stringify({
       placeId: placeId,
-      content: content,
+      content: values.content,
+      rating: +values.rating,
       author: name
     });
 

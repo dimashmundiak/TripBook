@@ -32,6 +32,7 @@ export class PlaceDetailComponent implements OnInit {
   ngOnInit() {
     this.commentForm = this.formBuilder.group({
       content: [null, Validators.required],
+      rating: [null, Validators.required],
       validate: '',
     });
     this.editForm = this.formBuilder.group({
@@ -53,8 +54,7 @@ export class PlaceDetailComponent implements OnInit {
 
   addComment(values) {
     var name = this.authService.getUser().profile.name;
-    var content = "hello world";
-    this.tripService.addComment(this.id, this.cityId, this.placeId, values.content, name).then(() => this.loadPlace()).catch(error => console.log(error));
+    this.tripService.addComment(this.id, this.cityId, this.placeId, values, name).then(() => this.loadPlace()).catch(error => console.log(error));
   }
 
   loadPlace() {

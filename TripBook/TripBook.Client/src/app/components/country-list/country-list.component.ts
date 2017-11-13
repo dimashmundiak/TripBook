@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TripBookService } from './../../services/trip-book.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-country-list',
@@ -20,7 +21,8 @@ export class CountryListComponent implements OnInit {
     private tripService: TripBookService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private progressBar: NgProgress
   ) { }
 
   ngOnInit() {
@@ -40,10 +42,17 @@ export class CountryListComponent implements OnInit {
   }
 
   load() {
-    this.tripService.loadCountries().then(response => {
-      console.log(response);
-      this.countries = response;
-    }).catch(error => console.log(error));
+    this.progressBar.start();
+    this.tripService.loadCountries()
+      .then(response => {
+        this.progressBar.done();
+        this.countries = response
+      })
+      .catch(error => {
+        console.log(error);
+        this.progressBar.done();
+      });
+
   }
 
 }

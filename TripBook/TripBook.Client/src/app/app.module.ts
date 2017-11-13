@@ -24,6 +24,7 @@ import { CityDetailComponent } from './components/city-detail/city-detail.compon
 import { PlaceDetailComponent } from './components/place-detail/place-detail.component';
 import { AccountComponent } from './components/account/account.component';
 import { SilentRefreshComponent } from './components/silent-refresh/silent-refresh.component';
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { SilentRefreshComponent } from './components/silent-refresh/silent-refre
     AppRoutingModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgProgressModule
   ],
   providers: [AuthGuardService, AuthService, TripBookService, RegisterService],
   bootstrap: [AppComponent]

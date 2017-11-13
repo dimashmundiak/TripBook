@@ -1,9 +1,15 @@
 .navbar {
     background-color: #4a5370;
+    .navbar-toggler {
+        margin-top: 1rem;
+    }
     .navbar-brand {
         img {
             width: 4rem;
             height: 4rem;
         }
+    }
+    .navbar-collapse {
+        text-align: center;
     }
 }
