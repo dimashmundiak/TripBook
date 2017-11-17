@@ -30,7 +30,6 @@ export class CountryListComponent implements OnInit {
       name: [null, Validators.required],
       description: [null, Validators.required],
       imageUrl: [null, Validators.required],
-      rating: [null, Validators.required],
       validate: '',
     });
     if (this.authService.isLoggedIn()) this.admin = this.authService.isAdmin();
@@ -38,7 +37,10 @@ export class CountryListComponent implements OnInit {
   }
 
   addCountry(values) {
-    this.tripService.addCountry(values).then(() => this.load()).catch(error => console.log(error));
+    this.tripService.addCountry(values).then(() => {
+      this.load();
+      this.addForm.reset();
+    }).catch(error => console.log(error));
   }
 
   load() {
