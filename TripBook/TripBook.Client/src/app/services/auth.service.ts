@@ -26,7 +26,8 @@ export class AuthService {
   }
 
   isAdmin() {
-    return this.user.profile.role === 'admin';
+    if (this.isLoggedIn())
+      return this.user.profile.role === 'admin';
   }
 
   getAuthorizationHeaderValue(): string {
@@ -43,8 +44,11 @@ export class AuthService {
     });
   }
 
-  refreshToken(): Promise<any>{
-    return this.manager.signinSilentCallback();
+  refreshToken() {
+    console.log('test1');
+    return this.manager.signinSilentCallback().then(user => {
+      this.user = user;
+    }).catch(error => console.log(error));
   }
 
   logOut() {
@@ -63,7 +67,7 @@ export function getClientSettings(): UserManagerSettings {
     filterProtocolClaims: true,
     loadUserInfo: true,
     automaticSilentRenew: true,
-    silent_redirect_uri: 'http://localhost:44360/silent-refresh'
+    silent_redirect_uri: 'https://localhost:44363/silent-refresh'
   };
 }
 
@@ -78,6 +82,6 @@ export function getClientSettingsLocal(): UserManagerSettings {
     filterProtocolClaims: true,
     loadUserInfo: true,
     automaticSilentRenew: true,
-    silent_redirect_uri: 'http://localhost:4200/silent-refresh'
+    silent_redirect_uri: 'http://localhost:4200/silent-refresh.html'
   };
 }
