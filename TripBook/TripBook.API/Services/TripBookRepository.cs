@@ -45,6 +45,11 @@ namespace TripBook.API.Services
             return _context.Cities.FirstOrDefaultAsync(c => c.CountryId == id && c.Id == cityId);
         }
 
+        public Task<City> GetCity(int cityId)
+        {
+            return _context.Cities.FirstOrDefaultAsync(c => c.Id == cityId);
+        }
+
         public void AddCityForCountry(City entity)
         {
             _context.Cities.AddAsync(entity);

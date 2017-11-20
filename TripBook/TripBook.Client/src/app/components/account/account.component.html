@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row justify-content-around">
-    <div *ngFor="let place of favourite" class="card col-lg-3">
+    <div *ngFor="let place of favourite" class="card col-lg-3" routerLink="/country/{{place.countryId}}/city/{{place.cityId}}/place/{{place.id}}">
       <img class="card-img-top" style="width: 100%; height: 15rem;" src="{{place.imageUrl}}" alt="Card image cap">
       <div class="card-block">
         <h4 class="card-title">{{place.id}}</h4>

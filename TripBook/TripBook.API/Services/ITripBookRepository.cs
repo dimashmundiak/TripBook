@@ -12,6 +12,7 @@ namespace TripBook.API.Services
         void DeleteCountry(Country entity);
         Task<List<City>> GetCitiesForCountry(int id);
         Task<City> GetCityForCountry(int id, int cityId);
+        Task<City> GetCity(int cityId);
         void AddCityForCountry(City entity);
         void DeleteCityForCountry(City entity);
         Task<List<Place>> GetPlacesForCity(int cityId);

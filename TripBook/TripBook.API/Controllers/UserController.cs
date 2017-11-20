@@ -68,7 +68,12 @@ namespace TripBook.API.Controllers
             var userFromRepo = await _repository.GetUser(userId);
             var userToReturn = Mapper.Map<UserDto>(userFromRepo);
             var placeFromRepo = userFromRepo.UserPlaces.Select(e => e.Place);
-            var placeToReturn = Mapper.Map<List<PlaceWithoutCommentsDto>>(placeFromRepo);
+            var placeToReturn = Mapper.Map<List<PlaceFavouriteDto>>(placeFromRepo);
+            foreach (var place in placeToReturn)
+            {
+                var cityId = await _repository.GetCity(place.CityId);
+                place.CountryId = cityId.CountryId;
+            }
             userToReturn.Places = placeToReturn;
             return Ok(userToReturn);
         }

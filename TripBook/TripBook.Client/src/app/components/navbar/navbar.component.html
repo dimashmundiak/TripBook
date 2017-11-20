@@ -17,11 +17,6 @@
       </li>
     </ul>
     <ul class="navbar-nav">
-      <li *ngIf="authService.isAdmin()" class="nav-item">
-        <button class="btn btn-primary" type="button" mat-button (click)="sidenav.open()">
-          Open admin tools
-        </button>
-      </li>
       <li *ngIf="!authService.isLoggedIn()" class="nav-item">
         <a class="nav-link" routerLink="/login">
           <i class="fa fa-sign-in" aria-hidden="true"></i>

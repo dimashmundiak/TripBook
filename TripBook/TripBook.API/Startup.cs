@@ -57,6 +57,7 @@ namespace TripBook.API
                 cfg.CreateMap<CityForUpdateDto, City>();
                 cfg.CreateMap<Place, PlaceDto>();
                 cfg.CreateMap<Place, PlaceWithoutCommentsDto>();
+                cfg.CreateMap<Place, PlaceFavouriteDto>();
                 cfg.CreateMap<PlaceForCreationDto, Place>();
                 cfg.CreateMap<PlaceForUpdateDto, Place>();
                 cfg.CreateMap<Comment, CommentDto>();
