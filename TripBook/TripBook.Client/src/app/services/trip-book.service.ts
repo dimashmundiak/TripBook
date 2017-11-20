@@ -43,8 +43,7 @@ export class TripBookService {
     let body = JSON.stringify({
       name: values.name,
       description: values.description,
-      imageUrl: values.imageUrl,
-      rating: values.rating
+      imageUrl: values.imageUrl
     });
 
     let headers = new Headers();

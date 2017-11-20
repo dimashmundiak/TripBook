@@ -38,11 +38,10 @@ export class CountryDetailComponent implements OnInit {
       name: [null, Validators.required],
       description: [null, Validators.required],
       imageUrl: [null, Validators.required],
-      rating: [null, Validators.required],
       validate: '',
     });
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    if(this.authService.isLoggedIn()) this.admin = this.authService.isAdmin();
+    if (this.authService.isLoggedIn()) this.admin = this.authService.isAdmin();
     this.loadCountry();
   }
 
@@ -56,7 +55,15 @@ export class CountryDetailComponent implements OnInit {
   }
 
   loadCountry() {
-    this.tripService.loadCountry(this.id).then(response => this.country = response).catch(error => console.log(error));
+    this.tripService.loadCountry(this.id).then(response => {
+      this.country = response;
+      this.editForm.patchValue({
+        name: this.country.name,
+        description: this.country.description,
+        imageUrl: this.country.imageUrl,
+        rating: this.country.rating
+      });
+    }).catch(error => console.log(error));
   }
 
   addCity(values) {

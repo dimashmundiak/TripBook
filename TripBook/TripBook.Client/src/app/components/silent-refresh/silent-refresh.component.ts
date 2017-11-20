@@ -14,7 +14,8 @@ export class SilentRefreshComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.refreshToken().catch(error => console.log(error));
+    console.log('test');
+    this.authService.refreshToken();
   }
 
 }
