@@ -29,7 +29,7 @@ namespace TripBook.API
                     ClientName = "Angular 4 Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowedScopes = new List<string> {"openid", "profile", "api1", "role"},
-                    RedirectUris = new List<string> {"https://localhost:44363/auth-callback"},
+                    RedirectUris = new List<string> {"https://localhost:44363/auth-callback", "https://localhost:44363/silent-refresh.html"},
                     PostLogoutRedirectUris = new List<string> {"https://localhost:44363/"},
                     AllowedCorsOrigins = new List<string> {"https://localhost:44363"},
                     AllowAccessTokensViaBrowser = true
@@ -40,7 +40,7 @@ namespace TripBook.API
                     ClientName = "Angular 4 Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowedScopes = new List<string> {"openid", "profile", "api1", "role"},
-                    RedirectUris = new List<string> {"http://localhost:4200/auth-callback"},
+                    RedirectUris = new List<string> {"http://localhost:4200/auth-callback", "http://localhost:4200/silent-refresh.html"},
                     PostLogoutRedirectUris = new List<string> {"http://localhost:4200/"},
                     AllowedCorsOrigins = new List<string> {"http://localhost:4200"},
                     AllowAccessTokensViaBrowser = true
